@@ -1,7 +1,7 @@
 # Hacking Notes  
 
 ## Configuration files: 
-|Description                | Command                         |Syntax/Example                 |
+|Description                | Command                         |Syntax                 |
 |----------------|-------------------------------|-----------------------------|
-| Use of VPN | openvpn           |openvpn file            |
+| Use of VPN | openvpn           |openvpn [FILE]            |
 | Use of nmap | nmap           | nmap [IP]/[RANGE] [OPTIONS]            |
