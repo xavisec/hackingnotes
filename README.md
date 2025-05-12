@@ -13,4 +13,4 @@
 ## Web files: 
 |Description                | Command                         |Syntax                 |
 |----------------|-------------------------------|-----------------------------|
-| Robots File | robots.txt           |[IP/robots.txt]         |
+| Robots File | robots.txt           | IP/robots.txt        |
