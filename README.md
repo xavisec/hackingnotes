@@ -2,9 +2,9 @@
 
 ## Configuration files: 
 Use of vpn: openvpn [file]
-|                |Command                          |How to Use                         |
+|Command                | Parameters                         |Example                 |
 |----------------|-------------------------------|-----------------------------|
-|Single backticks|`'Isn't this fun?'`            |'Isn't this fun?'            |
+|openvpn |`'Isn't this fun?'`            |openvpn file            |
 |Quotes          |`"Isn't this fun?"`            |"Isn't this fun?"            |
 |Dashes          |`-- is en-dash, --- is em-dash`|-- is en-dash, --- is em-dash|
 |Dashes          |`-- is en-dash, --- is em-dash`|-- is en-dash, --- is em-dash|
