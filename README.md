@@ -9,3 +9,8 @@
 | TCP nmap scan (no ping) | nmap           | nmap [IP]/[RANGE] -Pn             |
 | directory discovery | gobuster           | gobuster dir -u [URL] -w [WORDLIST e.g. /usr/share/wordlists/dirb/common.txt
 
+
+## Web files: 
+|Description                | Command                         |Syntax                 |
+|----------------|-------------------------------|-----------------------------|
+| Robots File | robots.txt           |[IP/robots.txt]         |
