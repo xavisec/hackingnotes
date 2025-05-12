@@ -2,7 +2,7 @@
 
 ## Configuration files: 
 Use of vpn: openvpn [file]
-|                |ASCII                          |HTML                         |
+|                |Command                          |How to Use                         |
 |----------------|-------------------------------|-----------------------------|
 |Single backticks|`'Isn't this fun?'`            |'Isn't this fun?'            |
 |Quotes          |`"Isn't this fun?"`            |"Isn't this fun?"            |
