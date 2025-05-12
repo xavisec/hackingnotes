@@ -14,3 +14,8 @@
 |Description                | Command                         |Syntax                 |
 |----------------|-------------------------------|-----------------------------|
 | Robots File | robots.txt           | [IP]/robots.txt        |
+
+## Data format: 
+|Description                | Command                         |Syntax                 |
+|----------------|-------------------------------|-----------------------------|
+| get only strings | strings           | strings [FILE]        |
