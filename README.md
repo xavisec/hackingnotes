@@ -19,3 +19,8 @@
 |Description                | Command                         |Syntax                 |
 |----------------|-------------------------------|-----------------------------|
 | Get only strings | strings           | strings [FILE]        |
+
+## Wordpress testing files
+|Description                | Syntax Path|                     
+|----------------|-------------------------------|
+| Conf backupfile | [file].swp        |
