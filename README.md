@@ -20,7 +20,7 @@
 |----------------|-------------------------------|-----------------------------|
 | Get only strings | strings           | strings [FILE]        |
 
-## Wordpress testing files
+## Wordpress files
 |Description                | Syntax Path|                     
 |----------------|-------------------------------|
 | Conf backupfile | [file].swp        |
