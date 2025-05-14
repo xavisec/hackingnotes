@@ -58,6 +58,10 @@ if (isset($_GET['trigger'])) {
 }
 Example: http://[IP]/wordpress/wp-content/themes/[THEME]/404.php?trigger=1)
 ```
+Binaries
+```
+/usr/bin/dash -p
+```
 
 LinPEAS
 ```
