@@ -24,3 +24,10 @@
 |Description                | Syntax Path|                     
 |----------------|-------------------------------|
 | Conf backupfile | [file].swp        |
+
+## Access
+|Description                | Syntax Path|                     
+|----------------|-------------------------------|
+|ftp | ftp [IP]       |
+|ssh | ssh [IP]       |
+
