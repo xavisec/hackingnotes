@@ -31,3 +31,16 @@
 |ftp | ftp [IP]       |
 |ssh | ssh [IP]       |
 
+## Dictionaries
+|Description                | Syntax Path|                     
+|----------------|-------------------------------|
+| cewl (Custom Word List generator) | cewl [URL] > [PWDFILE]       |
+
+
+## Bruteforce
+
+|Description                | Syntax Path|                     
+|----------------|-------------------------------|
+| hydra | hydra -L [USRFILE] -P [PWDFILE] [IP] -s [PORT] http-post-form "[url]:method=wp.getUsersBlogs&user=^USER^&password=^PASS^:Invalid" -V       |
+| wordpress wpscan (using xmlrpc.php) | wpscan --url [URL] -U [USER] -P [PWDFILE]       |
+
