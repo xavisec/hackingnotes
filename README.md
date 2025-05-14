@@ -67,6 +67,6 @@ curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh
 ## Port Scanning
 
 One-liner
-'''
+```
 python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list(ipaddress.IPv4Network("[RANGE]").hosts())[100:200] for p in range(1,65535) if not socket.socket().connect_ex((str(ip),p))]' 
-'''
+```
