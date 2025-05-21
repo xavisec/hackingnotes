@@ -95,4 +95,7 @@ http://[IP]/lx.php?page=php://filter/convert.base64-encode/resource=/var/www/htm
 ## Check commands in a restricted shell
 "TAB TAB"
 
+# FIles
+vim ~/.bash_logout
+
 
