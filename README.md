@@ -74,7 +74,7 @@ curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh
 Escape  restricted environments (vim)
 ```
 :!/bin/sh
-:set shell=/bin/sh // :set shell=/bin/bash:shell
+:set shell=/bin/sh // :set shell=/bin/bash
 :shell
 ```
 ## Port Scanning
