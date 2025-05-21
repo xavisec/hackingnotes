@@ -97,5 +97,6 @@ http://[IP]/lx.php?page=php://filter/convert.base64-encode/resource=/var/www/htm
 
 # FIles
 vim ~/.bash_logout
+vim ~/.config/
 
 
