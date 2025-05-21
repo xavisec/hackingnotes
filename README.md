@@ -30,6 +30,7 @@
 |----------------|-------------------------------|
 |ftp | ftp [IP]       |
 |ssh | ssh [IP]       |
+| smbclient | smbclient -L \\\\[IP]\\[Directory] |
 
 ## Dictionaries
 |Description                | Syntax Path|                     
