@@ -78,6 +78,12 @@ Escape  restricted environments (vim)
 :set shell=/bin/sh // :set shell=/bin/bash
 :shell
 ```
+
+## Noop on processes without need for root permissions
+```
+32-bit small version: https://github.com/DominicBreuker/pspy/releases/download/v1.2.1/pspy32s
+ref: https://github.com/DominicBreuker/pspy
+```
 ## Port Scanning
 
 One-liner
