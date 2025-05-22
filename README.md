@@ -79,7 +79,7 @@ Escape  restricted environments (vim)
 :shell
 ```
 
-## Noop on processes without need for root permissions
+## Snoop on processes without need for root permissions
 ```
 32-bit small version: https://github.com/DominicBreuker/pspy/releases/download/v1.2.1/pspy32s
 ref: https://github.com/DominicBreuker/pspy
