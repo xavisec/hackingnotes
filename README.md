@@ -8,7 +8,13 @@
 | Use VPN                 | openvpn        | `openvpn [FILE.ovpn]`                                   |
 | TCP Nmap Scan (no ping) | nmap           | `nmap -Pn [IP]/[RANGE]`                                 |
 | UDP Nmap Scan           | nmap           | `nmap -sU [IP]/[RANGE]`                                 |
-| Directory Discovery     | gobuster       | `gobuster dir -u http://[URL] -w [WORDLIST]`            |
+
+## Directory Discovery with Gobuster
+
+| Description             | Command                                                                 |
+|-------------------------|-------------------------------------------------------------------------|
+| Standard scan           | `gobuster dir -u http://[IP]/ -w /usr/share/wordlists/dirb/common.txt` |
+| Using SOCKS5 proxy      | `gobuster dir -p socks5://[IP]:[PORT] --url http://[IP]/ -w common.txt`|
 
 ---
 
