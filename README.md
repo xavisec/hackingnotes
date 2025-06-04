@@ -161,6 +161,39 @@ python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list
 | List sessions       | `sessions`                                |
 | Interact with session| `sessions -i <id>`                       |
 
+## Meterpreter Commands
+
+| Command               | Description                                      |
+|-----------------------|--------------------------------------------------|
+| `help`                | Show all available Meterpreter commands          |
+| `sysinfo`             | Get target system information                    |
+| `getuid`              | Display current user ID                          |
+| `ipconfig`            | Show network interfaces of the victim            |
+| `ifconfig`            | Same as above (alias)                            |
+| `shell`               | Drop into a standard command shell               |
+| `background`          | Send Meterpreter session to background           |
+| `sessions`            | List all active sessions                         |
+| `sessions -i [ID]`    | Interact with a specific session                 |
+| `upload [src] [dst]`  | Upload file to the target                        |
+| `download [src]`      | Download file from the target                    |
+| `edit [file]`         | Open a file on target in an editor               |
+| `cat [file]`          | Output contents of a file                        |
+| `pwd`                 | Print working directory on the target            |
+| `cd [dir]`            | Change directory on the target                   |
+| `ls`                  | List files in the current directory              |
+| `ps`                  | List running processes                           |
+| `migrate [PID]`       | Migrate to another process (for stability)       |
+| `getprivs`            | Enumerate current session privileges             |
+| `use stdapi`          | Load standard API (if not loaded automatically)  |
+| `keyscan_start`       | Start keylogger                                  |
+| `keyscan_dump`        | Dump recorded keystrokes                         |
+| `screenshot`          | Take a screenshot of the victim desktop          |
+| `webcam_list`         | List available webcams                           |
+| `webcam_snap`         | Take a snapshot using the webcam                 |
+| `record_mic`          | Record microphone audio                          |
+| `hashdump`            | Dump password hashes (if permissions allow)      |
+| `clearev`             | Clear event logs on the target          
+
 ---
 
 ## SMB Examples
