@@ -108,8 +108,11 @@ http://[IP]/lx.php?page=php://filter/convert.base64-encode/resource=/var/www/htm
 ## Check commands in a restricted shell
 "TAB TAB"
 
-# FIles
+# Files
 vim ~/.bash_logout
 vim ~/.config/
 
-
+## Samba
+Show directories: smbclient -L \\\\[IP]
+List files: smbclient \\\\[IP]\\[Directory]
+List files (example with proxy): proxychains smbclient \\\\[IP]\\[Directory]
