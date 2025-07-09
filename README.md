@@ -70,6 +70,19 @@ nmap -sU -p 53 -sV --script=dns-recursion <target>
 nmap -sV --version-intensity 9 --script "version and" <target>
 ```
 
+# Netcat SMTP Banner Grabbing & HELO Example
+nc <target> 25                # Banner grab
+# → 220 <target> ESMTP <software>: <message>
+
+HELO                         # HELO without hostname
+# → 501 Syntax: HELO hostname
+
+HELO <your-hostname>         # HELO with hostname
+# → 250 <target>
+
+QUIT                         # Close session
+# → 221 2.0.0 Bye
+
 
 ## Directory Discovery with Gobuster
 
