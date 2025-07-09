@@ -1,5 +1,41 @@
 # 72 97 99 107 105 110 103  78 111 116 101 115 
 ---
+## Common ports 
+
+| Port    | Protocol | Service / Description            |
+| ------- | -------- | -------------------------------- |
+| 21      | TCP      | FTP control                      |
+| 22      | TCP      | SSH                              |
+| 23      | TCP      | Telnet                           |
+| 25      | TCP      | SMTP                             |
+| 53      | TCP/UDP  | DNS                              |
+| 67      | UDP      | DHCP server                      |
+| 68      | UDP      | DHCP client                      |
+| 69      | UDP      | TFTP                             |
+| 80      | TCP      | HTTP                             |
+| 110     | TCP      | POP3                             |
+| 123     | UDP      | NTP                              |
+| 137–139 | UDP      | NetBIOS Name/Datagram/Session    |
+| 143     | TCP      | IMAP                             |
+| 161     | UDP      | SNMP                             |
+| 162     | UDP      | SNMP Trap                        |
+| 389     | TCP/UDP  | LDAP                             |
+| 443     | TCP      | HTTPS                            |
+| 445     | TCP      | Microsoft-DS (SMB over TCP)      |
+| **465** | **TCP**  | **SMTPS (SMTP over SSL/TLS)**    |
+| 514     | UDP      | Syslog                           |
+| 520     | UDP      | RIP                              |
+| 587     | TCP      | SMTP (submission)                |
+| 631     | TCP/UDP  | IPP (Internet Printing Protocol) |
+| 993     | TCP      | IMAPS                            |
+| 995     | TCP      | POP3S                            |
+| 1433    | TCP      | Microsoft SQL Server             |
+| 1521    | TCP      | Oracle DB listener               |
+| 3306    | TCP      | MySQL                            |
+| 3389    | TCP/UDP  | RDP                              |
+| 5900    | TCP      | VNC                              |
+| 8080    | TCP      | HTTP-alt                         |
+
 
 ## Configuration Files & Tools
 
