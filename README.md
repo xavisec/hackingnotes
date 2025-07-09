@@ -228,7 +228,15 @@ python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list
   Connects to an SSH service and retrieves the version banner (SSH protocol version, server software and version). Helps identify outdated or vulnerable SSH implementations.
 
 - **auxiliary/scanner/ssh/ssh_login**  
-  Attempts to authenticate to SSH using a supplied username/password or a password list. Useful for discovering weak or default credentials.  
+  Attempts to authenticate to SSH using a supplied username/password or a password list. Useful for discovering weak or default credentials.
+
+## FTP Auxiliary Modules
+
+- **auxiliary/scanner/ftp/ftp_version**  
+  Connects to an FTP service and retrieves its version banner (FTP server software and version). Helps identify outdated or vulnerable FTP implementations.
+
+- **auxiliary/scanner/ftp/ftp_login**  
+  Attempts to authenticate to FTP using a supplied username/password or a password list. Useful for discovering weak or default credentials.  
 
 ## SMB Examples
 
