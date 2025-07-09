@@ -222,6 +222,13 @@ python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list
 - **auxiliary/scanner/mysql/mysql_writable_dirs**  
   Enumerates directories on the MySQL server host where the `INTO OUTFILE` command is permitted. Useful for writing files (e.g., web shells) to disk.
 
+## SSH Auxiliary Modules
+
+- **auxiliary/scanner/ssh/ssh_version**  
+  Connects to an SSH service and retrieves the version banner (SSH protocol version, server software and version). Helps identify outdated or vulnerable SSH implementations.
+
+- **auxiliary/scanner/ssh/ssh_login**  
+  Attempts to authenticate to SSH using a supplied username/password or a password list. Useful for discovering weak or default credentials.  
 
 ## SMB Examples
 
