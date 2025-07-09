@@ -350,6 +350,7 @@ python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list
 | Inspect logout script       | `vim ~/.bash_logout`               |
 | Inspect user config         | `vim ~/.config/`                   |
 
+## Exploits & Scanners
 
 | Name                             | CVE           | Tool       | Command                                                                                     | Port   |
 | -------------------------------- | ------------- | ---------- | ------------------------------------------------------------------------------------------- | ------ |
