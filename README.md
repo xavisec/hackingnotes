@@ -70,29 +70,14 @@ nmap -sU -p 53 -sV --script=dns-recursion <target>
 nmap -sV --version-intensity 9 --script "version and" <target>
 ```
 
-# Netcat SMTP Banner Grabbing & HELO Example
-nc <target> 25                # Banner grab
-# → 220 <target> ESMTP <software>: <message>
+- **Nmap (banner + version)**  
+  `nmap -sV --script=banner <target>`
 
-HELO                         # HELO without hostname
-# → 501 Syntax: HELO hostname
+- **Netcat SMTP banner + HELO**  
+  `nc <target> 25 && echo -e "HELO <hostname>\r\nQUIT\r\n"`
 
-HELO <your-hostname>         # HELO with hostname
-# → 250 <target>
-
-QUIT                         # Close session
-# → 221 2.0.0 Bye
-
-One-line 
-# Netcat SMTP banner grab + HELO
-nc <target> 25 && echo -e "HELO <hostname>\r\nQUIT\r\n"
-
-# SMTP User Enumeration
-smtp-user-enum -t <target> -U /path/to/usernames.txt
-# → Valid users:
-#   user1
-#   user2
-#   user3
+- **SMTP user enumeration**  
+  `smtp-user-enum -t <target> -U /path/to/usernames.txt`
 
 ## Directory Discovery with Gobuster
 
