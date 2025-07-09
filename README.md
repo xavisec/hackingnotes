@@ -83,6 +83,10 @@ HELO <your-hostname>         # HELO with hostname
 QUIT                         # Close session
 # → 221 2.0.0 Bye
 
+One-line 
+# Netcat SMTP banner grab + HELO
+nc <target> 25 && echo -e "HELO <hostname>\r\nQUIT\r\n"
+
 
 ## Directory Discovery with Gobuster
 
