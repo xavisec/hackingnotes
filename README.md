@@ -87,6 +87,12 @@ One-line
 # Netcat SMTP banner grab + HELO
 nc <target> 25 && echo -e "HELO <hostname>\r\nQUIT\r\n"
 
+# SMTP User Enumeration
+smtp-user-enum -t <target> -U /path/to/usernames.txt
+# → Valid users:
+#   user1
+#   user2
+#   user3
 
 ## Directory Discovery with Gobuster
 
