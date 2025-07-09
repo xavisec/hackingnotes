@@ -196,6 +196,33 @@ python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list
 
 ---
 
+## MySQL Auxiliary Modules
+
+- **auxiliary/scanner/mysql/mysql_version**  
+  Connects to a MySQL server and retrieves its version banner. Useful to determine if the target is running a vulnerable version.
+
+- **auxiliary/scanner/mysql/mysql_login**  
+  Attempts to log in to MySQL using a supplied username/password (or a password list). Helps identify valid credentials.
+
+- **auxiliary/admin/mysql/mysql_enum**  
+  Gathers general MySQL information: users, databases, privileges, and version. Great for mapping out the target’s schema and user base.
+
+- **auxiliary/admin/mysql/mysql_sql**  
+  Allows you to run arbitrary SQL queries on the target once authenticated. Enables custom data extraction or manipulation.
+
+- **auxiliary/scanner/mysql/mysql_file_enum**  
+  Tries to enumerate files on the database host by exploiting MySQL’s `LOAD_FILE()` function. Can reveal configuration files, credentials, etc.
+
+- **auxiliary/scanner/mysql/mysql_hashdump**  
+  After authenticating, retrieves stored password hashes from the `mysql.user` table. These can then be cracked offline.
+
+- **auxiliary/scanner/mysql/mysql_schemadump**  
+  Connects and dumps schema metadata (tables, columns, types) across all databases. Builds a full picture of the database structure.
+
+- **auxiliary/scanner/mysql/mysql_writable_dirs**  
+  Enumerates directories on the MySQL server host where the `INTO OUTFILE` command is permitted. Useful for writing files (e.g., web shells) to disk.
+
+
 ## SMB Examples
 
 | Task              | Command                                  |
@@ -214,3 +241,4 @@ python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list
 | Check crontab               | `crontab -l`                        |
 | Inspect logout script       | `vim ~/.bash_logout`               |
 | Inspect user config         | `vim ~/.config/`                   |
+
