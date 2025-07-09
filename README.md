@@ -22,7 +22,7 @@
 | 389     | TCP/UDP  | LDAP                             |
 | 443     | TCP      | HTTPS                            |
 | 445     | TCP      | Microsoft-DS (SMB over TCP)      |
-| **465** | **TCP**  | **SMTPS (SMTP over SSL/TLS)**    |
+| 465 | TCP  | SMTPS (SMTP over SSL/TLS)   |
 | 514     | UDP      | Syslog                           |
 | 520     | UDP      | RIP                              |
 | 587     | TCP      | SMTP (submission)                |
