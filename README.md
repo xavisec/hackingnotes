@@ -68,8 +68,7 @@ nmap -sU -p 53 -sV --script=dns-recursion <target>
 
 # 7. Intense version scan + all version scripts
 nmap -sV --version-intensity 9 --script "version and" <target>
-Copy
-Edit
+```
 
 
 ## Directory Discovery with Gobuster
