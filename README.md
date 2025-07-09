@@ -45,6 +45,33 @@
 | TCP Nmap Scan (no ping) | nmap           | `nmap -Pn [IP]/[RANGE]`                                 |
 | UDP Nmap Scan           | nmap           | `nmap -sU [IP]/[RANGE]`                                 |
 
+## Nmap Banner & Version Scanning Examples
+
+```bash
+# 1. Version + banner grab
+nmap -sV --script=banner <target>
+
+# 2. Default safe scripts + version detection
+nmap -sV -sC <target>
+
+# 3. HTTP title and headers on web server
+nmap -p 80,443 --script=http-title,http-headers <target>
+
+# 4. FTP banner + anonymous login check
+nmap -p 21 --script=banner,ftp-anon <target>
+
+# 5. SSH hostkey and banner grab
+nmap -p 22 --script=ssh-hostkey,banner <target>
+
+# 6. UDP version scan + DNS recursion check
+nmap -sU -p 53 -sV --script=dns-recursion <target>
+
+# 7. Intense version scan + all version scripts
+nmap -sV --version-intensity 9 --script "version and" <target>
+Copy
+Edit
+
+
 ## Directory Discovery with Gobuster
 
 | Description             | Command                                                                 |
