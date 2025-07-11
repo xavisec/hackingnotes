@@ -84,6 +84,7 @@ nmap -sV --version-intensity 9 --script "version and" <target>
 Scan web applications for common vulnerabilities using Metasploit's built-in WMAP module.
 
 ```bash
+
 # Start Metasploit
 msfconsole
 
