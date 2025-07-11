@@ -79,12 +79,10 @@ nmap -sV --version-intensity 9 --script "version and" <target>
 - **SMTP user enumeration**  
   `smtp-user-enum -t <target> -U /path/to/usernames.txt`
 
-```bash
+```
+
 ## WMAP (Web Scanner in Metasploit)
-
 Scan web applications for common vulnerabilities using Metasploit's built-in WMAP module.
-
-
 
 # Start Metasploit
 msfconsole
