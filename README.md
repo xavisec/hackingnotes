@@ -166,7 +166,7 @@ set SMBPass <password>
 
 # Launch the exploit (starts a session)
 exploit
-'''
+```
 ## Directory Discovery with Gobuster
 
 | Description             | Command                                                                 |
