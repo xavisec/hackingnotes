@@ -50,9 +50,8 @@ You're welcome to fork, reuse, or suggest improvements.
 
 ---
 
-## ⚠️ Disclaimer
-
-This content is for **educational purposes only**. Use responsibly and only in environments where you have explicit authorization. I do not condone illegal activity.
+## ⚠️ Ethical Use Notice
+All content in this repository is shared for legitimate educational and research purposes. Use this information responsibly, only within authorized environments such as labs, test systems, or CTF platforms. Unauthorized use may be illegal and unethical.
 
 ---
 
