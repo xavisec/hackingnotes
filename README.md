@@ -57,4 +57,7 @@ All content in this repository is shared for legitimate educational and research
 
 ## 📄 License
 
-MIT License — reuse and adapt with credit.
+This project is licensed under the **Apache License 2.0**.  
+You are free to use, modify, and distribute the content, provided you retain proper attribution and include a copy of the license.
+
+[View Full License »](https://www.apache.org/licenses/LICENSE-2.0)
