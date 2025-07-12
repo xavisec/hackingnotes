@@ -31,7 +31,7 @@ I'm an information security specialist focused on technical execution and practi
 
 🎓 Currently pursuing a degree in Computer Science with Artificial Intelligence  
 ☁️ AWS Certified Security – Specialty  
-🧠 Regular HTB user and CTF player
+🧠 Ocasional Osint HTB user and CTF player
 
 🔗 [LinkedIn](https://www.linkedin.com/in/xavibages/) | [Hack The Box](https://app.hackthebox.com/users/289946)
 
