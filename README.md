@@ -438,3 +438,9 @@ python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list
 | BlueKeep RDP Scanner         | (N/A)         | Nmap       | `nmap -p3389 --script rdpscan --script-args rdpscan.hosts=<target>`                         | 3389   |
 
 
+## WinRM Enumeration and Access
+
+| Tool            | Description                            | Command / Syntax                                                                 |
+|-----------------|----------------------------------------|----------------------------------------------------------------------------------|
+| **crackmapexec**| Brute-force WinRM auth via domain creds| `crackmapexec winrm [TARGET] -d [DOMAIN] -u usernames.txt -p passwords.txt`     |
+| **evil-winrm**  | Remote access with valid credentials   | `evil-winrm -i [TARGET] -u [USER] -p [PASS] -d [DOMAIN]`                         |
