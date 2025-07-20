@@ -261,7 +261,6 @@ exploit
 
 ### SMB Enumeration & Exploitation Flow
 
-1. **SMB Login Bruteforce (Metasploit)**
    ```bash
    msfconsole -q
    use auxiliary/scanner/smb/smb_login
