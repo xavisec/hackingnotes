@@ -330,8 +330,9 @@ exploit
 | Make binary SUID | `chmod u+s /tmp/bash` |
 
 ---
-### 🐚 ProFTPD 1.3.3c Exploit → Hashdump → Cracking → Hash ID Reference
+###  ProFTPD 1.3.3c Exploit → Hashdump → Cracking → Hash ID Reference
 
+```bash
 # 1. Scan for vulnerabilities on port 21 (FTP)
 nmap --script vuln -p 21 <target>
 
@@ -362,6 +363,7 @@ run
 # $5     →  SHA-256
 # $6     →  SHA-512
 # -------------------------------
+```
 ---
 
 
